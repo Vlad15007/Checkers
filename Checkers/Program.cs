@@ -10,7 +10,7 @@ namespace Checkers
     {
         static int[,] map =
         {
-            {1, 1, 0, 1, 0, 1, 0, 1 },
+            {0, 1, 0, 1, 0, 1, 0, 1 },
             {1, 0, 1, 0, 1, 0, 1, 0 },
             {0, 1, 0, 1, 0, 1, 0, 1 },
             {0, 0, 0, 0, 0, 0, 0, 0 },
@@ -78,7 +78,12 @@ namespace Checkers
                     }
                     else
                     {
-                        if (map[i, j] == 1)
+                        if (map[i, j] == -1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.Write("^|");
+                        }
+                        else if (map[i, j] == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Blue;
                             Console.Write("o|");
@@ -101,13 +106,57 @@ namespace Checkers
 
         static void Main(string[] args)
         {
-            while(true)
+            while (true)
             {
+                Search();
                 DrawField();
                 ReadCursor();
             }
         }
 
+        static void Search()
+        {
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if (map[i, j] == -1) map[i, j] = 0;
+                }
+            }
+
+
+            if (GetCheck("x") -1 >= 0 && GetCheck("y") -1 >= 0)
+            {
+                if (map[GetCheck("x") - 1, GetCheck("y") - 1] == 0)
+                {
+                    map[GetCheck("x") - 1, GetCheck("y") - 1] = -1;
+                }
+            }
+
+            if (GetCheck("x") - 1 >= 0 && GetCheck("y") + 1 >= 0)
+            {
+                if (map[GetCheck("x") - 1, GetCheck("y") + 1] == 0)
+                {
+                    map[GetCheck("x") - 1, GetCheck("y") + 1] = -1;
+                }
+            }
+
+            if (GetCheck("x") + 1 >= 0 && GetCheck("y") - 1 >= 0)
+            {
+                if (map[GetCheck("x") + 1, GetCheck("y") - 1] == 0)
+                {
+                    map[GetCheck("x") + 1, GetCheck("y") - 1] = -1;
+                }
+            }
+
+            if (GetCheck("x") + 1 >= 0 && GetCheck("y") + 1 >= 0)
+            {
+                if (map[GetCheck("x") + 1, GetCheck("y") + 1] == 0)
+                {
+                    map[GetCheck("x") + 1, GetCheck("y") + 1] = -1;
+                }
+            }
+        }
 
         static void ReadCursor()
         {
