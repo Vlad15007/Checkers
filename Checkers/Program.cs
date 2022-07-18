@@ -29,8 +29,15 @@ namespace Checkers
             else return -1;
         }
 
+        static void SetCursor(int x, int y)
+        {
+            cursor[0] = x;
+            cursor[1] = y;
+        }
+
         static void DrawField()
         {
+            Console.Clear();
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 Console.WriteLine("------------------------");
@@ -65,8 +72,33 @@ namespace Checkers
 
         static void Main(string[] args)
         {
-            DrawField();
-            Console.ReadKey();
+            while(true)
+            {
+                DrawField();
+                ReadCursor();
+            }
+        }
+
+
+        static void ReadCursor()
+        {
+            ConsoleKey keydown = Console.ReadKey().Key;
+            if(keydown == ConsoleKey.W && GetCursor("x") > 0)
+            {
+                SetCursor(GetCursor("x") - 1, GetCursor("y") );
+            }
+            else if (keydown == ConsoleKey.D && GetCursor("y") < 7)
+            {
+                SetCursor(GetCursor("x"), GetCursor("y") + 1);
+            }
+            else if(keydown == ConsoleKey.S && GetCursor("x") < 7)
+            {
+                SetCursor(GetCursor("x") + 1, GetCursor("y"));
+            }
+            else if(keydown == ConsoleKey.A && GetCursor("y") > 0)
+            {
+                SetCursor(GetCursor("x"), GetCursor("y") - 1);
+            }
         }
     }
 }
