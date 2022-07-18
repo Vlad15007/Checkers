@@ -1,0 +1,7 @@
+C:\Users\S\source\repos\Checkers\Checkers\bin\Debug\Checkers.exe.config
+C:\Users\S\source\repos\Checkers\Checkers\bin\Debug\Checkers.exe
+C:\Users\S\source\repos\Checkers\Checkers\bin\Debug\Checkers.pdb
+C:\Users\S\source\repos\Checkers\Checkers\obj\Debug\Checkers.csproj.AssemblyReference.cache
+C:\Users\S\source\repos\Checkers\Checkers\obj\Debug\Checkers.csproj.CoreCompileInputs.cache
+C:\Users\S\source\repos\Checkers\Checkers\obj\Debug\Checkers.exe
+C:\Users\S\source\repos\Checkers\Checkers\obj\Debug\Checkers.pdb
