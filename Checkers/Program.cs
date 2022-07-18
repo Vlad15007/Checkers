@@ -10,7 +10,7 @@ namespace Checkers
     {
         static int[,] map =
         {
-            {0, 1, 0, 1, 0, 1, 0, 1 },
+            {1, 1, 0, 1, 0, 1, 0, 1 },
             {1, 0, 1, 0, 1, 0, 1, 0 },
             {0, 1, 0, 1, 0, 1, 0, 1 },
             {0, 0, 0, 0, 0, 0, 0, 0 },
@@ -19,8 +19,9 @@ namespace Checkers
             {0, 2, 0, 2, 0, 2, 0, 2 },
             {2, 0, 2, 0, 2, 0, 2, 0 }
         };
-
+        #region Координаты
         static int[] cursor = { 7, 7 };
+        static int[] check = { 0, 0 };
 
         static int GetCursor(string xy)
         {
@@ -34,6 +35,22 @@ namespace Checkers
             cursor[0] = x;
             cursor[1] = y;
         }
+
+        static int GetCheck(string xy)
+        {
+            if (xy == "x") return check[0];
+            else if (xy == "y") return check[1];
+            else return -1;
+        }
+
+        static void SetCheck()
+        {
+            check[0] = cursor[0];
+            check[1] = cursor[1];
+        }
+        #endregion
+
+
 
         static void DrawField()
         {
@@ -50,18 +67,30 @@ namespace Checkers
                     }
                     else Console.Write(" ");
 
-
-                    if(map[i, j] == 1)
+                    if(GetCheck("x") == i && GetCheck("y") == j)
                     {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write("o|");
+                        if(map[i, j] > 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("o|");
+                        }
+                        else Console.Write(" |");
                     }
-                    else if (map[i, j] == 2)
+                    else
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("o|");
+                        if (map[i, j] == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write("o|");
+                        }
+                        else if (map[i, j] == 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("o|");
+                        }
+                        else Console.Write(" |");
                     }
-                    else Console.Write(" |");
+                    
 
                     Console.ResetColor();
                 }
@@ -98,6 +127,10 @@ namespace Checkers
             else if(keydown == ConsoleKey.A && GetCursor("y") > 0)
             {
                 SetCursor(GetCursor("x"), GetCursor("y") - 1);
+            }
+            else if(keydown == ConsoleKey.Spacebar)
+            {
+                SetCheck();
             }
         }
     }
